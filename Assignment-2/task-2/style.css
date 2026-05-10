@@ -107,7 +107,7 @@ nav {
   height: 100%;
   width: 45%;
   border-radius: 20px;
-  background-image: url(Images/main.png);
+  background-image: url(./assets/main.png);
   background-size: cover;
   display: flex;
   justify-content: flex-end;
