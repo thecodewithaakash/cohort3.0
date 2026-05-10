@@ -21,14 +21,13 @@ body::before {
   top: 0;
   left: 0;
   z-index: -1;
-  filter: blur(3px);
+  filter: blur(8px);
 }
 
 nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background: rgba(0, 0, 0, 0.4);
 }
 
 nav ul {
@@ -100,14 +99,14 @@ nav ul li a {
 }
 
 .btn button {
-   background: linear-gradient(
-    135deg,            
-    black 10%,         
-    black 5%,          
-    yellow 5%,         
-    yellow 95%,        
-     black 5%,         
-    black 100%        
+  background: linear-gradient(
+    135deg,
+    black 10%,
+    black 5%,
+    yellow 5%,
+    yellow 95%,
+    black 5%,
+    black 100%
   );
   padding: 1rem 3rem;
   border: none;
@@ -116,12 +115,20 @@ nav ul li a {
 }
 
 .vision {
-  position: relative;
   background: #2b2330;
-  padding: 120px 40px 80px;
-  margin-top: -80px;
+  position: relative;
+  top: 130px;
+  padding: 50px 120px;
+  color: white;
+}
 
-  /* Main magic */
-  border-top-left-radius: 100% 120px;
-  border-top-right-radius: 100% 120px;
+.vision h2{
+  text-align: center;
+  padding:12px;
+}
+
+.summary {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
