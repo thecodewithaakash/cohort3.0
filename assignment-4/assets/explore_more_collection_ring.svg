@@ -1,0 +1,29 @@
+<svg width="100%" viewBox="0 0 680 300" role="img" style="" xmlns="http://www.w3.org/2000/svg">
+  <title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Explore More Collection circular badge</title>
+  <desc style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">A circular badge with "EXPLORE MORE COLLECTION" text following the ring path and a play button in the center, matching the Deep°style design reference.</desc>
+
+  <defs>
+    <path id="topArc" d="M 340,150 m -95,0 a 95,95 0 1,1 190,0 a 95,95 0 1,1 -190,0"/>
+    
+  </defs>
+
+  <!-- outer decorative dashed ring -->
+  <circle cx="340" cy="150" r="115" fill="none" stroke="#111" stroke-width="1" stroke-dasharray="4 5" opacity="0.35" style="fill:none;stroke:rgb(17, 17, 17);color:rgb(255, 255, 255);stroke-width:1px;stroke-dasharray:4px, 5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.35;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- spinning text ring -->
+  <g style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">
+    <circle cx="340" cy="150" r="95" fill="none" stroke="#111" stroke-width="1.2" opacity="0.18" style="fill:none;stroke:rgb(17, 17, 17);color:rgb(255, 255, 255);stroke-width:1.2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.18;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+    <text font-family="Arial, sans-serif" font-size="11.5" font-weight="700" fill="#111" letter-spacing="3.8" text-anchor="middle" style="fill:rgb(17, 17, 17);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Arial, sans-serif;font-size:11.5px;font-weight:700;text-anchor:middle;dominant-baseline:auto">
+      <textPath href="#topArc" startOffset="50%" style="fill:rgb(17, 17, 17);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Arial, sans-serif;font-size:11.5px;font-weight:700;text-anchor:middle;dominant-baseline:auto">
+        EXPLORE · MORE · COLLECTION · EXPLORE · MORE ·
+      </textPath>
+    </text>
+  </g>
+
+  <!-- center play button circle -->
+  <circle cx="340" cy="150" r="28" fill="#111" style="fill:rgb(17, 17, 17);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- play triangle -->
+  <polygon points="333,140 333,160 353,150" fill="white" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+</svg>
