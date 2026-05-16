@@ -20,8 +20,8 @@ main {
   height: 100%;
   width: 100%;
   background-color: rgb(243, 235, 235);
-  grid-template-columns: 20% 20% 20% 20% 20%;
-  grid-template-rows: 10% 25% 9% 6% 7% 9% 10% 24%;
+  grid-template-columns: 19% 19% 21% 21% 20%;
+  grid-template-rows: 11% 24% 10% 7% 6% 8% 11% 23%;
   grid-template-areas:
     "nav            nav         nav           nav             nav "
     "top-left      top-center  top-center    top-center top-right "
@@ -29,7 +29,7 @@ main {
     "main-left     main-left1  main-center   main-right1  main-right"
     "main-left     main-left2  main-center   main-right1  main-right"
     "main-left     main-left2  main-center   main-right2  main-right"
-    "main-left-gap main-left2  main-center   main-right2  main-right-gap"
+    "left-gap main-left2  main-center   main-right2  right-gap"
     "bottom-left   bottom-left bottom-center bottom-right  bottom-right ";
 }
 
@@ -68,24 +68,9 @@ nav ul li a {
   text-decoration: none;
 }
 
-nav ul li a::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 1.5px;
-  background: #2e2e2d;
-  transition:
-    width 0.3s ease,
-    left 0.3s ease;
-}
-
 nav ul li a:hover {
   color: #171616;
 }
-
-
 
 .nav-right {
   display: flex;
@@ -93,6 +78,7 @@ nav ul li a:hover {
   gap: 20px;
   font-size: 20px;
 }
+
 .nav-right #cart {
   height: 40px;
   width: 40px;
@@ -104,53 +90,64 @@ nav ul li a:hover {
   justify-content: center;
 }
 
+/* left */
 .top-left {
   grid-area: top-left;
   width: 90%;
   margin: auto;
 }
+
 .top-left img {
   width: 20%;
   margin: 30px 0 0 50px;
 }
+
 .para {
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin: 30px 0 0 100px;
 }
+
 .para p:nth-child(1) {
   font-size: 12px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: rgb(111, 106, 106);
 }
+
 .para p:nth-child(2) {
   font-size: 20px;
   text-transform: uppercase;
   font-family: sans-serif;
   font-weight: 600;
 }
+
+/* center */
 .top-center {
   grid-area: top-center;
 }
-.top-center .title {
+
+.title {
   font-size: 70px;
   font-family: "Plus Jakarta Sans", sans-serif;
   font-weight: 800;
   text-align: center;
 }
+
 .top-center img {
   width: 5%;
 }
 .top-right {
   grid-area: top-right;
 }
+
 .flower {
   position: relative;
   top: 30px;
   left: 180px;
   width: 18%;
 }
+
 .ring {
   width: 90%;
   position: relative;
@@ -161,6 +158,7 @@ nav ul li a:hover {
 .main-left {
   grid-area: main-left;
 }
+
 .main-left img {
   width: 65%;
   height: 95%;
@@ -169,11 +167,13 @@ nav ul li a:hover {
   border-radius: 30px;
   margin-left: 120px;
 }
+
 .main-left1 {
   width: 80%;
   height: 100%;
   grid-area: main-left1;
 }
+
 .main-left1 img {
   margin: 20px 0px 0px 90px;
   width: 80%;
@@ -182,13 +182,16 @@ nav ul li a:hover {
   object-position: top;
   border-radius: 20px;
 }
-.main-left-gap {
-  grid-area: main-left-gap;
+
+.left-gap {
+  grid-area: left-gap;
 }
-.main-left-gap span {
+
+.left-gap span {
   font-size: 40px;
   margin-left: 100px;
 }
+
 .main-left2 {
   grid-area: main-left2;
 }
@@ -205,6 +208,7 @@ nav ul li a:hover {
 .main-center {
   grid-area: main-center;
 }
+
 .main-center img {
   margin: 0px 50px;
   width: 70%;
@@ -217,6 +221,7 @@ nav ul li a:hover {
 .main-right1 {
   grid-area: main-right1;
 }
+
 .main-right1 img {
   margin: 17px 0px 0px 29px;
   width: 60%;
@@ -225,9 +230,11 @@ nav ul li a:hover {
   object-position: top;
   border-radius: 20px;
 }
+
 .main-right2 {
   grid-area: main-right2;
 }
+
 .main-right2 img {
   margin-left: 30px;
   width: 60%;
@@ -236,9 +243,11 @@ nav ul li a:hover {
   object-position: top;
   border-radius: 20px;
 }
+
 .main-right {
   grid-area: main-right;
 }
+
 .main-right img {
   width: 65%;
   height: 95%;
@@ -247,26 +256,32 @@ nav ul li a:hover {
   border-radius: 30px;
   margin-right: 100px;
 }
-.main-right-gap {
-  grid-area: main-right-gap;
+
+.right-gap {
+  grid-area: right-gap;
 }
-.main-right-gap img {
+
+.right-gap img {
   width: 40px;
   margin-left: 150px;
 }
-.main-right-gap h2 {
+
+.right-gap h2 {
   margin-left: 70px;
   display: inline;
 }
+
 .bottom-left {
   display: relative;
   grid-area: bottom-left;
 }
-.bottom-left .detils {
+
+.details {
   font-size: 12px;
   margin-left: 100px;
   font-family: Arial, Helvetica, sans-serif;
 }
+
 .sign {
   position: relative;
   top: 100px;
@@ -278,18 +293,21 @@ nav ul li a:hover {
   display: inline-block;
   border-bottom: 2px solid #131313;
 }
+
 .bottom-left img {
   display: block;
   width: 10%;
   position: relative;
   left: 500px;
 }
+
 .bottom-center {
   align-items: center;
   justify-content: center;
   display: flex;
   grid-area: bottom-center;
 }
+
 .bottom-center button {
   align-items: center;
   border: none;
@@ -311,21 +329,26 @@ nav ul li a:hover {
   gap: 10px;
   margin-left: 145px;
 }
+
 .bottom-right p:nth-child(1) {
   font-size: 10px;
 }
+
 .bottom-right p:nth-child(2) {
   font-size: 20px;
-  font-family:sans-serif
+  font-family: sans-serif;
 }
-.main-containt {
+
+.bottomText {
   display: flex;
   gap: 20px;
   align-items: center;
 }
-.num {
+
+.numText {
   font-size: 30px;
 }
+
 .arrow {
   width: 40px;
   height: 40px;
