@@ -1,0 +1,245 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  padding: 8px;
+}
+
+main {
+  background: url("./assets/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  padding: 0 20px;
+  color: white;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.right a {
+  text-decoration: none;
+  color: white;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  font-family: sans-serif;
+}
+
+.right button {
+  background: transparent;
+  border: 2px solid white;
+  outline: none;
+  padding: 10px 20px;
+  color: white;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.midSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 50px);
+  color: white;
+  text-transform: uppercase;
+  font-family: sans-serif;
+  font-weight: 600;
+}
+
+.midSection h1 {
+  font-size: 7rem;
+}
+
+.midSection p {
+  font-size: 1.3rem;
+}
+
+.articles {
+  text-align: center;
+  position: relative;
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 247 246 / var(--tw-bg-opacity, 1));
+  padding-top: 5rem;
+  padding-bottom: 2rem;
+}
+
+.articles::before {
+  content: "";
+  width: 3px;
+  height: 70px;
+  background: black;
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.articles h1{
+  text-transform: uppercase;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-top: 20px;
+}
+
+.cards::before {
+  content: "";
+  width: 2px;
+  height: 50px;
+  background: black;
+  position: absolute;
+  top: 69%;
+  margin: 10px 150px;
+  transform: translate(-20%, -20%) rotate(90deg);
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 15px;
+  box-shadow: 5px 5px 5px 5px #888888;
+  height: 400px;
+  width: 300px;
+}
+
+.cards p {
+  text-align: center;
+  padding: 70px;
+  font-weight: 550;
+  font-family: sans-serif;
+}
+
+.cards img {
+  height: 250px;
+  width: 300px;
+}
+
+/* about section */
+
+.aboutSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5rem;
+  text-align: center;
+  margin-top: 20px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.aboutSection img {
+  height: 90vh;
+  width: 50vw;
+}
+
+.infoText h1::after {
+  content: "";
+  width: 5%;
+  height: 3px;
+  background: black;
+  position: absolute;
+  left: 76%;
+  top: 30%;
+}
+
+.infoText {
+  width: 100vw;
+}
+
+.infoText h1 {
+  text-transform: uppercase;
+  font-size: 2.5rem;
+  margin-bottom: 5rem;
+}
+
+.infoText p {
+  font-weight: 500;
+  font-size: 1.5rem;
+  font-family: sans-serif;
+}
+
+.subscribeSection {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  height: 50%;
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 247 246 / var(--tw-bg-opacity, 1));
+}
+
+.subscribeSection h1{
+  text-transform: uppercase;
+  font-size: 3rem;
+}
+
+.subscribeSection h4{
+  font-size: 1.5rem;
+}
+
+.subscribeSection input{
+  border: none;
+  outline: none;
+  background-color: white;
+  color: black;
+  padding: 1rem 5rem;
+}
+
+.subscribeSection button{
+  border: 1px solid black;
+  background: transparent;
+  color:black;
+  text-transform: uppercase;
+  padding: 0.3rem 1.8rem;
+  cursor: pointer;
+}
+
+/* footer */
+footer{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 40%;
+}
+
+.icons i{
+  font-size: 1.5rem;
+  margin-left: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.links a{
+  text-decoration: none;
+  margin-left: 1rem;
+  text-transform: uppercase;
+  color: #000;
+  font-weight: bold;
+}
