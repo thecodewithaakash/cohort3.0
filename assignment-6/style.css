@@ -55,6 +55,17 @@ main::before {
   z-index: -1;
 }
 
+.burger {
+  display: none;
+  margin: 5px;
+}
+
+.burger .line {
+  border-bottom: 2px solid black;
+  padding: 5px;
+  width: 30px;
+}
+
 /* navbar */
 nav {
   display: flex;
@@ -158,7 +169,6 @@ nav {
   border: 1px solid black;
 }
 
-
 /* Hero section */
 
 .heroSection {
@@ -227,6 +237,7 @@ nav {
   align-items: center;
   overflow-x: auto;
   gap: 1.5rem;
+  flex-wrap: wrap;
 }
 .s2-bottom .s2-btm-cards::-webkit-scrollbar {
   display: none;
@@ -428,7 +439,6 @@ p {
   background-color: #daeaff;
 }
 
-
 /* Origin section  */
 
 .origin-section {
@@ -448,8 +458,6 @@ p {
   width: 9rem;
   animation: floatAnime 4s ease-in-out infinite;
 }
-
-
 
 .origin-section #s4-head {
   position: relative;
@@ -592,7 +600,6 @@ p {
   flex-wrap: wrap;
   display: flex;
   justify-content: center;
-  flex-direction: column;
   align-items: center;
   padding: 0rem 1rem;
   gap: 1rem;
@@ -672,7 +679,6 @@ p {
   font-weight: 200;
 }
 
-
 .review-section .s5-bottom .s5-card .s5-card-bottom {
   width: 100%;
   height: 30%;
@@ -731,7 +737,6 @@ p {
   background-color: var(--black);
   color: var(--white);
 }
-
 
 .banner-section {
   width: 100%;
@@ -894,6 +899,49 @@ p {
 
 /* Responsiveness */
 
+@media (max-width: 1000px) {
+  nav {
+    display: none;
+    flex-direction: column;
+  }
+
+  .left{
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  .right{
+    flex-direction: column;
+    margin-top: 1rem;
+  }
+
+  .center{
+    display: flex;
+    justify-content: center;
+  }
+
+  .burger {
+    display: block;
+    float: right;
+    margin-right: 1rem;
+    cursor: pointer;
+  }
+
+  .paraText{
+    font-size: 1rem;
+  }
+
+  .btn{
+    font-size: 0.5rem;
+  }
+}
+
+@media (max-width:800px){
+  .paraText{
+    font-size: 0.5rem;
+  }
+}
+
 @media (min-width: 1020px) {
   main {
     width: 100%;
@@ -995,7 +1043,6 @@ p {
   .discover-section .s3-texts-box span {
     font-size: 2.5rem;
   }
-
 
   .origin-section {
     width: 100%;
@@ -1139,7 +1186,6 @@ p {
     position: relative;
   }
 
-
   .footer-section .s10-center {
     width: 100%;
     height: 100vh;
@@ -1197,7 +1243,6 @@ p {
     position: relative;
   }
 }
-
 
 /* animation */
 
