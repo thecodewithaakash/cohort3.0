@@ -1,0 +1,103 @@
+@font-face {
+  font-family: "Reckless";
+  src: url("https://cdn.shopify.com/s/files/1/0297/8132/7932/files/RecklessCondensedS-TRIAL-Book.woff?v=1768655865")
+    format("woff");
+
+  font-weight: 400;
+
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Midnight";
+  src: url("https://cdn.shopify.com/s/files/1/0297/8132/7932/files/midnight-sans-rd-12-medium-trial.otf?v=1768200246")
+    format("woff");
+
+  font-weight: 500;
+
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Midnight";
+  src: url(" https://cdn.shopify.com/s/files/1/0297/8132/7932/files/midnight-sans-rd-12-semibold-trial.otf?v=1768200246")
+    format("woff");
+
+  font-weight: 600;
+
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("https://cdn.shopify.com/s/files/1/0297/8132/7932/files/RobotoMono-Regular.ttf?v=1768204557")
+    format("woff");
+
+  font-weight: 400;
+
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto Mono";
+  src: url(" https://cdn.shopify.com/s/files/1/0297/8132/7932/files/RobotoMono-Medium.ttf?v=1768204557")
+    format("woff");
+
+  font-weight: 500;
+
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Figtree;
+  font-weight: 400;
+  font-style: normal;
+  src:
+    url("//www.twoleavestea.com/cdn/fonts/figtree/figtree_n4.3c0838aba1701047e60be6a99a1b0a40ce9b8419.woff2")
+      format("woff2"),
+    url("//www.twoleavestea.com/cdn/fonts/figtree/figtree_n4.c0575d1db21fc3821f17fd6617d3dee552312137.woff")
+      format("woff");
+}
+
+@font-face {
+  src: url("./fonts/RecklessCondensedS-TRIAL-Book.woff");
+  font-family: font1;
+}
+@font-face {
+  src: url("./fonts/RobotoMono-Regular.ttf");
+  font-family: font2;
+}
+@font-face {
+  src: url("./fonts/figtree_n4.3c0838aba1701047e60be6a99a1b0a40ce9b8419.woff2");
+  font-family: font3;
+}
+@font-face {
+  font-family: font4;
+  src: url("./fonts/midnight-sans-rd-12-semibold-trial.otf");
+}
+@font-face {
+  font-family: font5;
+  src: url("./fonts/midnight-sans-rd-12-medium-trial.otf");
+}
+
+:root {
+  --header-font-family: "Roboto Mono";
+  --navbar-bg: #fffefb;
+  --black: #201c1a;
+  --white: #ffffff;
+  --blue: #2a2857;
+  --bgclr: #fbf9eb;
+  --purple: #daaeea;
+  --green: #c1ee91;
+  --orange: #ffd884;
+  --lightgreen: #b0e8c1;
+  --lightblue: #c1e4f8;
+  --darkgreen: #c0e571;
+  --darkorange: #ff7f31;
+  --darkblue: #a2c9fc;
+}
