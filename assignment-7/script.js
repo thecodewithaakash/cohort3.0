@@ -150,12 +150,12 @@ const grandParent = document.getElementById('grandparent')
 
 // ### EVENT BUBBLING : Child → Parent → Grandparent
 
-child.addEventListener("click", () => console.log("Child Bubble"));
-parent.addEventListener("click", () => console.log("Parent Bubble"));
-grandparent.addEventListener("click", () => console.log("Grandparent Bubble"));
+child.addEventListener("click", () => console.log("Bubbling: Child Bubble"));
+parent.addEventListener("click", () => console.log("Bubbling: Parent Bubble"));
+grandParent.addEventListener("click", () => console.log("Bubbling: Grandparent Bubble"));
 
 
 // ### EVENT CAPTURING : Grandparent → Parent → Child
-grandParent.addEventListener("click",() => console.log("Grandparent Capture"),true);
-parent.addEventListener("click", () => console.log("Parent Capture"), true);
-child.addEventListener("click", () => console.log("Child Capture"), true);
+grandParent.addEventListener("click",() => console.log("Capturing: Grandparent Capture"),true);
+parent.addEventListener("click", () => console.log("Capturing: Parent Capture"), true);
+child.addEventListener("click", () => console.log("Capturing: Child Capture"), true);
