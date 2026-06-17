@@ -1,4 +1,4 @@
-# DOM Explorer: Build an Interactive Task Manager Using Pure JavaScript
+<!-- # DOM Explorer: Build an Interactive Task Manager Using Pure JavaScript
 
 ## 📖 Task Overview
 
@@ -293,4 +293,326 @@ By the end of this assignment, you should have a complete **Task Manager Applica
 * Event Propagation concepts
 * Attributes vs Properties
 * Browser Rendering Pipeline concepts
+ -->
 
+### Important Points Explained
+
+# 1. Parsing
+
+- Parsing is the process where the browser reads HTML code and analyzes its structure according to HTML rules.
+  Example HTML:
+
+```html
+<body>
+  <h1>Hello</h1>
+</body>
+```
+
+The browser parses the tags and understands:
+
+- `body` is an element
+- `h1` is inside `body`
+- `"Hello"` is text content
+
+### Flow
+
+```text
+HTML Code
+    ↓
+Parsing
+    ↓
+DOM Tree
+```
+
+# 2. Tokenization
+- Before creating the DOM Tree, the browser breaks HTML into small pieces called **tokens**.
+
+Example:
+
+```html
+<h1>Hello</h1>
+```
+
+```text
+Start Tag Token -> <h1>
+Text Token      -> Hello
+End Tag Token   -> </h1>
+```
+
+### Flow
+
+```text
+HTML
+ ↓
+Tokenization
+ ↓
+Tokens
+ ↓
+Parsing
+ ↓
+DOM Tree
+```
+
+### Why it is needed?
+
+- The browser cannot directly understand a long HTML string.
+- It first converts it into tokens and then builds the DOM Tree.
+
+---
+
+# 3. DOM Tree
+
+- The DOM (Document Object Model) Tree is a tree-like representation of HTML created by the browser. Each HTML element becomes a node in the tree.
+Example:
+```html
+<html>
+  <body>
+    <h1>Hello</h1>
+    <button>Click</button>
+  </body>
+</html>
+```
+
+DOM Tree:
+
+```text
+html
+│
+└── body
+    │
+    ├── h1
+    │   └── "Hello"
+    │
+    └── button
+        └── "Click"
+```
+
+### JavaScript Example
+
+```js
+const heading = document.querySelector("h1");
+
+heading.textContent = "New Title";
+```
+
+- JavaScript modifies the DOM Tree through DOM APIs.
+
+---
+
+# 4. CSSOM Tree
+
+- The CSSOM (CSS Object Model) Tree is created when the browser parses CSS.
+- Example CSS:
+```css
+h1 {
+  color: red;
+}
+
+button {
+  background: blue;
+}
+```
+
+CSSOM:
+
+```text
+CSSOM
+│
+├── h1
+│    └── color: red
+│
+└── button
+     └── background: blue
+```
+
+### Flow
+
+```text
+CSS
+ ↓
+Parsing
+ ↓
+CSSOM Tree
+```
+
+- The browser uses CSSOM to determine how elements should appear.
+
+---
+
+# 5. Render Tree
+
+- The Render Tree is created by combining:
+
+```text
+DOM Tree
+    +
+CSSOM Tree
+    ↓
+Render Tree
+```
+
+- The Render Tree contains only visible elements.
+
+Example:
+
+```html
+<h1>Hello</h1>
+
+<div style="display:none">Hidden</div>
+```
+
+- DOM Tree contains both elements.
+- Render Tree contains only:
+
+```text
+h1
+```
+
+because the `div` is hidden.
+
+### Browser Rendering Pipeline
+
+```text
+HTML
+ ↓
+Tokenization
+ ↓
+Parsing
+ ↓
+DOM Tree
+
+CSS
+ ↓
+Parsing
+ ↓
+CSSOM Tree
+
+DOM + CSSOM
+ ↓
+Render Tree
+ ↓
+Layout
+ ↓
+Paint
+```
+
+---
+
+# 6. Event Bubbling
+
+- When an event occurs on a child element, it first executes on the child and then moves upward through its ancestors.
+
+### HTML
+
+```html
+<div id="grandparent">
+  <div id="parent">
+    <button id="child">Click</button>
+  </div>
+</div>
+```
+
+### JavaScript
+
+```js
+grandparent.addEventListener("click", () => {
+  console.log("Grandparent");
+});
+
+parent.addEventListener("click", () => {
+  console.log("Parent");
+});
+
+child.addEventListener("click", () => {
+  console.log("Child");
+});
+```
+
+### Output
+
+```text
+Child
+Parent
+Grandparent
+```
+
+- This is called **bubbling**.
+
+---
+
+# 7. Event Capturing
+
+- Capturing is the opposite of bubbling.
+- The event starts from the outermost ancestor and moves downward to the target element.
+
+### JavaScript
+
+```js
+grandparent.addEventListener(
+  "click",
+  () => {
+    console.log("Grandparent");
+  },
+  true,
+);
+
+parent.addEventListener(
+  "click",
+  () => {
+    console.log("Parent");
+  },
+  true,
+);
+
+child.addEventListener(
+  "click",
+  () => {
+    console.log("Child");
+  },
+  true,
+);
+```
+
+### Output
+
+```text
+Grandparent
+Parent
+Child
+```
+
+- The third argument `true` enables capturing mode.
+
+---
+
+# 8. Event Delegation
+
+- Instead of attaching event listeners to every child element, attach one listener to the parent and use event bubbling to handle child events.
+
+```html
+<div id="event-delegation">
+  <div class="task-card" data-id="1">Task 1</div>
+  <div class="task-card" data-id="2">Task 2</div>
+  <div class="task-card" data-id="3">Task 3</div>
+</div>
+```
+
+```js
+const eventDelegation = document.getElementById("event-delegation");
+
+eventDelegation.addEventListener("click", function (e) {
+  if (e.target.classList.contains("task-card")) {
+    console.log("Clicked Task:", e.target.dataset.id);
+  }
+});
+```
+
+### Attributes vs Properties
+1. Attributes: static values defined in HTML markup
+   - Do not change automatically at runtime
+   - Examples: id, class, src, alt, type, placeholder
+
+2. Properties: dynamic values of DOM objects
+   - Reflect current state in JavaScript
+   - Example: <p id="paraText"> → "id" is attribute,
+     but element.id = "paraText" is property

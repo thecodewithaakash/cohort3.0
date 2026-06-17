@@ -37,7 +37,7 @@ form.addEventListener("submit", (e) => {
 // 1. Attributes: static values defined in HTML markup
 //    - Do not change automatically at runtime
 //    - Examples: id, class, src, alt, type, placeholder
-//
+
 // 2. Properties: dynamic values of DOM objects
 //    - Reflect current state in JavaScript
 //    - Example: <p id="paraText"> → "id" is attribute,
