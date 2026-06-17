@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager ~ Exploring DOM</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body data-theme="light">
+    <header>
+      <h1>Task Manager</h1>
+      <button id="themeToggle">🌙 Toggle Theme</button>
+    </header>
+    <main>
+      <!-- 1. Task Creation Module -->
+      <section class="form-section">
+        <form id="taskForm">
+          <input
+            id="taskTitle"
+            type="text"
+            value="Default Value"
+            placeholder="Enter task title"
+            required
+          />
+
+          <select id="category">
+            <option value="Work">Work</option>
+            <option value="Study">Study</option>
+            <option value="Personal">Personal</option>
+          </select>
+
+          <button type="submit">Add Task</button>
+        </form>
+      </section>
+
+      <section class="controls">
+        <input type="text" id="searchTask" placeholder="Search tasks..." />
+
+        <select id="filterCategory">
+          <option value="all">All Categories</option>
+          <option value="Work">Work</option>
+          <option value="Study">Study</option>
+          <option value="Personal">Personal</option>
+        </select>
+
+        <button id="clearAll">Clear All</button>
+      </section>
+
+      <section class="stats">
+        <div>Completed: <span id="completedCount">0</span></div>
+        <div>Pending: <span id="pendingCount">0</span></div>
+      </section>
+
+      <section id="taskContainer"></section>
+
+      <section class="event-demo">
+        <hr />
+        <h2 style="margin-top: 1rem">
+          Event Propagation Demo - check in browser console
+        </h2>
+
+        <div id="grandparent" class="grandparent">
+          Grandparent
+
+          <div id="parent" class="parent">
+            Parent
+
+            <button id="child">Child Button</button>
+          </div>
+        </div>
+
+        <p>Open Console to see Bubbling & Capturing order</p>
+      </section>
+
+      <hr />
+
+      <section class="pipeline">
+        <h2>Browser Rendering Pipeline</h2>
+
+        <div class="flow">
+          <div class="box">HTML</div>
+          <div>↓</div>
+
+          <div class="box">Parsing</div>
+          <div>↓</div>
+
+          <div class="box">Tokenization</div>
+          <div>↓</div>
+
+          <div class="box">DOM Tree</div>
+          <div>↓</div>
+
+          <div class="box">CSSOM Tree</div>
+          <div>↓</div>
+
+          <div class="box">Render Tree</div>
+          <div>↓</div>
+
+          <div class="box">Layout</div>
+          <div>↓</div>
+
+          <div class="box">Paint</div>
+          <div>↓</div>
+
+          <div class="box">Composite</div>
+        </div>
+      </section>
+    </main>
+    <script src="utility-functions.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
