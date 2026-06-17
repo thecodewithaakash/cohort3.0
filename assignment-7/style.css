@@ -62,6 +62,10 @@ button {
   border-color: #555;
 }
 
+.delegation-demo{
+  margin: 1rem 0;
+}
+
 .event-demo{
   margin-top: 1rem;
 }

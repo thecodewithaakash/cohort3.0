@@ -137,25 +137,45 @@ clearAll.addEventListener("click", () => {
   renderTasks();
 });
 
-
 // rendering all tasks
 renderTasks();
 
+// ### Event Delegation
+const eventDelegation = document.getElementById("event-delegation");
+
+eventDelegation.addEventListener("click", function (e) {
+  if (e.target.classList.contains("task-card")) {
+    console.log("Clicked Task:", e.target.dataset.id);
+  }
+});
 
 // ### Now implement and understand - event propagation, bubbling,capturing etc..
 
-const child = document.getElementById('child')
-const parent = document.getElementById('parent')
-const grandParent = document.getElementById('grandparent')
+const child = document.getElementById("child");
+const parent = document.getElementById("parent");
+const grandParent = document.getElementById("grandparent");
 
 // ### EVENT BUBBLING : Child → Parent → Grandparent
 
 child.addEventListener("click", () => console.log("Bubbling: Child Bubble"));
 parent.addEventListener("click", () => console.log("Bubbling: Parent Bubble"));
-grandParent.addEventListener("click", () => console.log("Bubbling: Grandparent Bubble"));
-
+grandParent.addEventListener("click", () =>
+  console.log("Bubbling: Grandparent Bubble"),
+);
 
 // ### EVENT CAPTURING : Grandparent → Parent → Child
-grandParent.addEventListener("click",() => console.log("Capturing: Grandparent Capture"),true);
-parent.addEventListener("click", () => console.log("Capturing: Parent Capture"), true);
-child.addEventListener("click", () => console.log("Capturing: Child Capture"), true);
+grandParent.addEventListener(
+  "click",
+  () => console.log("Capturing: Grandparent Capture"),
+  true,
+);
+parent.addEventListener(
+  "click",
+  () => console.log("Capturing: Parent Capture"),
+  true,
+);
+child.addEventListener(
+  "click",
+  () => console.log("Capturing: Child Capture"),
+  true,
+);
