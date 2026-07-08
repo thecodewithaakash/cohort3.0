@@ -12,7 +12,6 @@ try {
   localStorage.setItem("registeredUsers", "[]");
 }
 
-
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   // console.log(e);
@@ -20,11 +19,12 @@ form.addEventListener("submit", (e) => {
   const name = e.target[0].value;
   const pass = e.target[1].value;
 
-  if(name.length < 3 || pass.length < 8){
-    alert('name atleast 3 characters and password must be atleast 8 characters!')
+  if (name.length < 3 || pass.length < 8) {
+    alert(
+      "name atleast 3 characters and password must be atleast 8 characters!",
+    );
     return;
   }
-  
 
   if (name.trim() === "" || pass.trim() === "") {
     alert("name & password must be provided!");
@@ -32,24 +32,23 @@ form.addEventListener("submit", (e) => {
   }
 
   const existingUser = users.find((user) => user.name === name);
-  if(existingUser){
-    alert('Username already exists! Please choose another.')
+  if (existingUser) {
+    alert("Username already exists! Please choose another.");
     return;
   }
 
   const currentUser = {
-    name:name,
-    pass:pass,
-  }
+    name: name,
+    pass: pass,
+  };
 
-  users = [...users,currentUser]
+  users = [...users, currentUser];
 
-  localStorage.setItem('registeredUsers',JSON.stringify(users));
+  localStorage.setItem("registeredUsers", JSON.stringify(users));
 
+  username.value = "";
+  password.value = "";
 
-  username.value = ''
-  password.value = ''
-
-  alert('Registration successful! You can now log in.')
-  location.href = '../login/login.html'
+  alert("Registration successful! You can now log in.");
+  location.href = "../login/login.html";
 });

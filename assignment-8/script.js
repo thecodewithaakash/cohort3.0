@@ -12,7 +12,7 @@ let storageKey = `transactions_${userProfile.username}`;
 let transactions = JSON.parse(localStorage.getItem(storageKey)) || [];
 
 // initialize chart
- let myChart = null;
+let myChart = null;
 
 // ### fetching all transactions - initial rendering of existing transactions data
 updateUI();
@@ -44,7 +44,6 @@ logoutBtn.addEventListener("click", (e) => {
 });
 
 // ### Implement settings - where user can manage their profile + choose currency
-
 const buttons = document.querySelectorAll("[data-target]");
 const viewSection = document.querySelectorAll(".view-section");
 const navItem = document.querySelectorAll(".nav-item");
@@ -61,14 +60,12 @@ buttons.forEach((btn) => {
   });
 });
 
-// const settingName = document.querySelector("#settingName");
 const settingCurrency = document.querySelector("#settingCurrency");
 const settingsForm = document.querySelector("#settingsForm");
 
 let defaultCurrency = "$";
 settingsForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  // console.log(settingName.value, settingCurrency.value);
   const user = {
     currency: settingCurrency.value,
     username: settingName.value,
@@ -127,30 +124,6 @@ const transactionData = [];
 transactionForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  // let currentTransaction = {
-  //   id: (txId.value = generateID()),
-  //   type: txType.value,
-  //   description: txDescription.value,
-  //   amount: txAmount.value,
-  //   date: txDate.value,
-  //   category: txCategory.value,
-  // };
-
-  // transactionData.push(currentTransaction);
-
-  // if (settingUser) {
-  //   localStorage.setItem(
-  //     `transactions_${settingUser.username}`,
-  //     JSON.stringify(transactionData),
-  //   );
-  // } else {
-  //   localStorage.setItem(
-  //     `transactions_${sessions.name}`,
-  //     JSON.stringify(transactionData),
-  //   );
-  // }
-
-  // optimized code
   const id = txId.value;
   const type = txType.value;
   const description = txDescription.value;
@@ -176,6 +149,11 @@ transactionForm.addEventListener("submit", (e) => {
   transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   updateUI();
+
+  // form reset
+  transactionForm.reset();
+
+  // close modal
   transactionModal.classList.remove("active");
 });
 
@@ -219,7 +197,7 @@ function updateUI(dataToRender = transactions) {
 
   // Save to the USER-SPECIFIC key
   localStorage.setItem(storageKey, JSON.stringify(transactions));
-    updateChart(totalIncome, totalExpense);
+  updateChart(totalIncome, totalExpense);
 }
 
 // Edit Transactions
@@ -249,7 +227,7 @@ function deleteTransaction(id) {
 
 // ### THEME & NAVIGATION
 const darkModeToggle = document.getElementById("darkModeToggle");
-const theme = localStorage.getItem("theme")
+const theme = localStorage.getItem("theme");
 if (theme === "dark") {
   document.body.classList.add("dark-theme");
   darkModeToggle.checked = true;
@@ -276,24 +254,36 @@ resetBtn.addEventListener("click", () => {
   }
 });
 
-
-  // ### implementing chart feature
+// ### implementing chart feature
 function updateChart(income, expense) {
-        const ctx = document.getElementById('cashFlowChart').getContext('2d');
-        if (myChart) { myChart.destroy(); }
-        myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Income vs Expenses'],
-                datasets: [
-                    { label: 'Income', data: [income], backgroundColor: '#166534', borderRadius: 4 },
-                    { label: 'Expenses', data: [expense], backgroundColor: '#991b1b', borderRadius: 4 }
-                ]
-            },
-            options: {
-                responsive: true, maintainAspectRatio: false,
-                scales: { y: { beginAtZero: true } },
-                plugins: { legend: { position: 'top' } }
-            }
-        });
-    }
+  const ctx = document.getElementById("cashFlowChart").getContext("2d");
+  if (myChart) {
+    myChart.destroy();
+  }
+  myChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ["Income vs Expenses"],
+      datasets: [
+        {
+          label: "Income",
+          data: [income],
+          backgroundColor: "#166534",
+          borderRadius: 4,
+        },
+        {
+          label: "Expenses",
+          data: [expense],
+          backgroundColor: "#991b1b",
+          borderRadius: 4,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: { y: { beginAtZero: true } },
+      plugins: { legend: { position: "top" } },
+    },
+  });
+}
