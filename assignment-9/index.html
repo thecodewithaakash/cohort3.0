@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ZenFocus | Premium Productivity Workspace</title>
+    <!-- Material Symbols Outlined for modern icons -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-surface  select-none min-h-screen pb-24 transition-colors duration-300 relative text-white">
+    
+    <!-- Moving Organic WebGL Shader Background Canvas -->
+    <canvas id="shader-canvas" class="fixed bg-surface -z-10 w-full h-full object-cover pointer-events-none" style="background: #0b1326;"></canvas>
+
+    <!-- App Header -->
+    <header class="sticky top-0 z-50 glass-card inner-glow w-full px-4 md:px-8 py-4 flex justify-between items-center backdrop-blur-xl border-b border-white/5">
+      <button id="logo-btn" class="flex items-center gap-3 active:scale-95 transition-all">
+        <span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'wght' 600;">grid_view</span>
+        <h1 class="font-sans text-xl font-bold text-on-surface tracking-tight">ZenFocus</h1>
+      </button>
+
+      <div class="flex items-center gap-4">
+        <!-- Live Clock -->
+        <div class="font-mono text-sm font-semibold text-primary bg-primary/10 px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-inner">
+          <span class="material-symbols-outlined text-sm animate-pulse" style="font-variation-settings: 'wght' 600;">schedule</span>
+          <span id="live-clock">19:13:33</span>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button id="theme-toggle-btn" class="p-2 rounded-full hover:bg-white/5 active:scale-95 text-on-surface-variant hover:text-on-surface transition-all" title="Toggle theme">
+          <span id="theme-icon" class="material-symbols-outlined">sun_today</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Central Stage for Views -->
+    <main class="px-4 md:px-8 pb-12 pt-6 max-w-4xl mx-auto w-full relative z-10">
+      
+      <!-- VIEW 1: Dashboard View (Active by default) -->
+      <section id="dashboard-view" class="view-panel space-y-6">
+        
+        <!-- Weather Widget Card -->
+        <div id="weather-card" class="glass-card inner-glow rounded-3xl p-5 flex flex-col gap-3 border-white/10 relative overflow-hidden transition-all duration-300 hover:border-white/20 hover:scale-[1.01] cursor-pointer">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <div class="p-2 bg-white/5 rounded-2xl">
+                <span id="weather-icon" class="material-symbols-outlined text-4xl text-tertiary" style="font-variation-settings: 'FILL' 1;">wb_sunny</span>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span id="weather-temp" class="font-sans font-bold text-3xl text-on-surface tracking-tight">72°F</span>
+                  <span class="material-symbols-outlined text-sm text-primary">location_on</span>
+                </div>
+                <div class="font-sans text-sm font-medium text-on-surface-variant">
+                  <span id="weather-cond">Sunny</span>, <span id="weather-city">San Francisco</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-right">
+              <div class="font-sans text-xs font-semibold text-secondary uppercase tracking-widest">Today</div>
+              <div id="weather-range" class="font-sans text-sm text-on-surface-variant mt-1">H: 78° L: 64°</div>
+            </div>
+          </div>
+
+          <!-- Quick City Selector (Hidden initially) -->
+          <div id="city-selector" class="hidden mt-2 pt-3 border-t border-white/5 flex flex-wrap gap-2">
+            <!-- Appended dynamically by JS -->
+          </div>
+        </div>
+
+        <!-- Dashboard Bento Grid -->
+        <div class="grid grid-cols-2 gap-4">
+          <!-- Card Tasks -->
+          <button id="dash-nav-tasks" class="glass-card inner-glow rounded-3xl p-6 flex flex-col items-start gap-4 active:scale-[0.97] hover:border-white/20 transition-all text-left group">
+            <div class="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined">checklist</span>
+            </div>
+            <div>
+              <h3 class="font-sans font-semibold text-lg text-on-surface tracking-tight">Tasks</h3>
+              <p id="preview-tasks-count" class="font-sans text-xs font-semibold text-on-surface-variant uppercase tracking-wider mt-1">0 pending</p>
+            </div>
+          </button>
+
+          <!-- Card Planner -->
+          <button id="dash-nav-planner" class="glass-card inner-glow rounded-3xl p-6 flex flex-col items-start gap-4 active:scale-[0.97] hover:border-white/20 transition-all text-left group">
+            <div class="w-12 h-12 rounded-2xl bg-secondary/20 flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined">calendar_today</span>
+            </div>
+            <div>
+              <h3 class="font-sans font-semibold text-lg text-on-surface tracking-tight">Planner</h3>
+              <p id="preview-planner-summary" class="font-sans text-xs font-semibold text-on-surface-variant uppercase tracking-wider mt-1 truncate max-w-[130px]">Check daily plan</p>
+            </div>
+          </button>
+
+          <!-- Card Focus -->
+          <button id="dash-nav-focus" class="glass-card inner-glow rounded-3xl p-6 flex flex-col items-start gap-4 active:scale-[0.97] hover:border-white/20 transition-all text-left group">
+            <div class="w-12 h-12 rounded-2xl bg-tertiary/20 flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined">timer</span>
+            </div>
+            <div>
+              <h3 class="font-sans font-semibold text-lg text-on-surface tracking-tight">Focus</h3>
+              <p id="preview-focus-timer" class="font-sans text-xs font-semibold text-on-surface-variant uppercase tracking-wider mt-1">25:00 session</p>
+            </div>
+          </button>
+
+          <!-- Card Goals -->
+          <button id="dash-nav-goals" class="glass-card inner-glow rounded-3xl p-6 flex flex-col items-start gap-4 active:scale-[0.97] hover:border-white/20 transition-all text-left group">
+            <div class="w-12 h-12 rounded-2xl bg-error/20 flex items-center justify-center text-error group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined">track_changes</span>
+            </div>
+            <div>
+              <h3 class="font-sans font-semibold text-lg text-on-surface tracking-tight">Goals</h3>
+              <p id="preview-goals-summary" class="font-sans text-xs font-semibold text-on-surface-variant uppercase tracking-wider mt-1">0/0 complete</p>
+            </div>
+          </button>
+
+          <!-- Daily Wisdom Card (Spans 2 columns) -->
+          <button id="dash-nav-quotes" class="col-span-2 glass-card inner-glow rounded-3xl p-6 flex items-center justify-between gap-6 active:scale-[0.97] hover:border-white/20 transition-all text-left group">
+            <div class="flex items-center gap-4 flex-1 overflow-hidden">
+              <div class="w-12 h-12 rounded-2xl bg-surface-variant flex items-center justify-center text-on-surface-variant shrink-0 group-hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined">format_quote</span>
+              </div>
+              <div class="overflow-hidden">
+                <h3 class="font-sans font-semibold text-lg text-on-surface tracking-tight">Daily Wisdom</h3>
+                <p id="preview-wisdom-text" class="font-sans text-sm text-on-surface-variant truncate italic mt-0.5">"The only way to do great work..."</p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-on-surface-variant/70 shrink-0 group-hover:translate-x-1 transition-transform">chevron_right</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- VIEW 2: Tasks View (Hidden initially) -->
+      <section id="tasks-view" class="view-panel hidden space-y-6">
+        <div class="flex items-center gap-4">
+          <button class="back-btn w-10 h-10 rounded-full glass-card flex items-center justify-center text-on-surface hover:bg-white/10 active:scale-95 transition-all">
+            <span class="material-symbols-outlined">arrow_back</span>
+          </button>
+          <h2 class="font-sans font-bold text-2xl text-on-surface tracking-tight">Tasks</h2>
+        </div>
+
+        <!-- Task input field -->
+        <form id="task-form" class="glass-card rounded-3xl p-4 flex gap-2 inner-glow">
+          <input id="task-input" type="text" autocomplete="off" placeholder="Add a new task..." class="flex-grow bg-transparent border-none focus:outline-none focus:ring-0 text-on-surface placeholder:text-outline/50 px-2 text-base" />
+          <button type="submit" class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center hover:brightness-110 transition-all active:scale-95 shrink-0">
+            <span class="material-symbols-outlined font-bold">add</span>
+          </button>
+        </form>
+
+        <!-- Filters Tabs -->
+        <div class="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+          <button id="task-filter-all" class="task-filter-tab px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide border bg-primary/20 text-secondary border-secondary/30 shadow-sm shadow-secondary/5">All Tasks</button>
+          <button id="task-filter-starred" class="task-filter-tab px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide border border-transparent bg-white/5 hover:bg-white/10 text-on-surface-variant">Important</button>
+          <button id="task-filter-completed" class="task-filter-tab px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide border border-transparent bg-white/5 hover:bg-white/10 text-on-surface-variant">Completed</button>
+        </div>
+
+        <!-- Tasks List Container -->
+        <div id="tasks-list" class="space-y-3">
+          <!-- Dynamically populated -->
+        </div>
+      </section>
+
+      <!-- VIEW 3: Planner View (Hidden initially) -->
+      <section id="planner-view" class="view-panel hidden space-y-6">
+        <div class="flex items-center gap-4">
+          <button class="back-btn w-10 h-10 rounded-full glass-card flex items-center justify-center text-on-surface hover:bg-white/10 active:scale-95 transition-all">
+            <span class="material-symbols-outlined">arrow_back</span>
+          </button>
+          <h2 class="font-sans font-bold text-2xl text-on-surface tracking-tight">Daily Planner</h2>
+        </div>
+
+        <!-- Hero Header & Focus Progress -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 py-2">
+          <div class="space-y-1">
+            <h1 id="planner-date" class="font-sans font-bold text-3xl text-on-surface tracking-tight">Today</h1>
+            <p class="font-sans text-sm text-on-surface-variant/80">Your roadmap for high-performance productivity.</p>
+          </div>
+
+          <div class="glass-panel px-5 py-3 rounded-2xl flex items-center gap-4">
+            <div class="flex flex-col">
+              <span class="font-sans text-[10px] font-bold text-secondary uppercase tracking-widest">Focus Progress</span>
+              <div class="h-2 w-32 bg-surface-container rounded-full mt-2 overflow-hidden relative">
+                <div id="planner-progress-bar" class="h-full bg-secondary shadow-[0_0_8px_rgba(68,226,205,0.5)] transition-all duration-500" style="width: 5%"></div>
+              </div>
+            </div>
+            <div class="h-8 w-[1px] bg-white/10"></div>
+            <div class="text-center shrink-0">
+              <span id="planner-progress-percent" class="font-sans font-bold text-xl text-on-surface">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Main Hourly Slots -->
+          <div class="lg:col-span-8 space-y-4">
+            <div class="glass-panel rounded-3xl p-4 md:p-6 inner-glow space-y-4 max-h-[600px] overflow-y-auto custom-scrollbar">
+              <div id="planner-slots-container" class="space-y-2">
+                <!-- Dynamically generated 8 AM to 8 PM -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar Priorities & Habits -->
+          <div class="lg:col-span-4 space-y-6">
+            <!-- Priorities Widget -->
+            <div class="glass-panel rounded-3xl p-6 inner-glow">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="font-sans font-bold text-lg text-on-surface">Top Priorities</h3>
+                <span class="material-symbols-outlined text-tertiary">target</span>
+              </div>
+
+              <ul id="priorities-list" class="space-y-3">
+                <!-- Dynamically populated -->
+              </ul>
+
+              <!-- Add Priority Toggle -->
+              <div id="add-priority-form-container" class="hidden mt-3 animate-fade-in">
+                <form id="priority-form" class="flex gap-2">
+                  <input id="priority-input" type="text" autocomplete="off" placeholder="New priority..." class="flex-grow bg-white/5 border-none rounded-xl text-xs text-on-surface placeholder:text-outline-variant px-3 focus:ring-1 focus:ring-primary focus:outline-none" />
+                  <button type="submit" class="p-2 bg-primary text-on-primary rounded-xl hover:brightness-110 active:scale-95">
+                    <span class="material-symbols-outlined text-sm font-bold">add</span>
+                  </button>
+                </form>
+              </div>
+              <button id="toggle-priority-btn" class="w-full mt-4 py-3 rounded-2xl bg-primary/10 hover:bg-primary/20 text-primary font-sans text-xs font-bold tracking-wide active:scale-95 transition-all border border-primary/20">
+                Add Priority
+              </button>
+            </div>
+
+            <!-- Atmospheric Quote Bento Box -->
+            <div class="relative overflow-hidden rounded-3xl h-44 flex flex-col justify-end p-5 group shadow-lg border border-white/10">
+              <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 opacity-30" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDVZcEoWrPSKjHmIk_WklIxTEXN02YzvpPMP5Wkgp-aTfX3Zuy7HupaBlC05-P2Yhu6dJwB04S2n9eZPPykRfQ_JBe4vDyxKqNv2opu_aZNmHeTFpX_t-82CX46KrukQwFxhEB9T_TeBUpOdbNPhwx4dSh_lAL9gBgr31i4Jz6MWFCWHvBvA-MR2ijwkvFCBVNt15utKH_nEXiMtJkfsoH6mi1cv5h62dUgOT4PjblCE53TB1seibP5V-ObhlzuzlOGuCHB9A4GFxHo');"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
+              <div class="relative z-10 space-y-1.5">
+                <p class="font-sans text-[10px] font-bold text-secondary uppercase tracking-widest flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[12px]">sparkles</span> Inspiration
+                </p>
+                <h4 class="font-sans text-sm font-medium text-on-surface italic leading-relaxed">
+                  "Focus is a matter of deciding what things you're not going to do."
+                </h4>
+                <p class="font-sans text-[10px] font-semibold text-on-surface-variant uppercase tracking-wider">— John Carmack</p>
+              </div>
+            </div>
+
+            <!-- Habit Tracker Widget -->
+            <div class="glass-panel rounded-3xl p-6 inner-glow">
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="font-sans font-bold text-lg text-on-surface">Habits</h3>
+                <span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">favorite</span>
+              </div>
+
+              <div id="habits-container" class="flex gap-3 overflow-x-auto pb-1 scrollbar-hide">
+                <!-- Dynamically populated habits -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 4: Focus pomodoro (Hidden initially) -->
+      <section id="focus-view" class="view-panel hidden space-y-8 text-center max-w-lg mx-auto">
+        <div class="flex items-center gap-4 text-left">
+          <button class="back-btn w-10 h-10 rounded-full glass-card flex items-center justify-center text-on-surface hover:bg-white/10 active:scale-95 transition-all">
+            <span class="material-symbols-outlined">arrow_back</span>
+          </button>
+          <h2 class="font-sans font-bold text-2xl text-on-surface tracking-tight">Focus</h2>
+        </div>
+
+        <!-- Visual Timer Dial -->
+        <div class="relative inline-block mx-auto mt-6">
+          <div id="timer-visual-circle" class="w-64 h-64 rounded-full glass-card border-2 border-primary/30 flex flex-col items-center justify-center relative transition-all duration-500">
+            <span id="timer-mode-label" class="font-sans text-xs font-bold uppercase tracking-[0.25em] mb-3 flex items-center gap-1.5 text-secondary">
+              <span class="material-symbols-outlined text-sm animate-pulse">psychology</span>
+              Deep Focus
+            </span>
+            <span id="timer-time-display" class="font-sans font-bold text-5xl tracking-tight text-on-surface">25:00</span>
+          </div>
+        </div>
+
+        <!-- Timer Controls -->
+        <div class="flex justify-center items-center gap-6 pt-2">
+          <button id="timer-reset-btn" class="w-14 h-14 rounded-full glass-card flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:border-white/20 active:scale-95 transition-all" title="Reset Timer">
+            <span class="material-symbols-outlined">replay</span>
+          </button>
+
+          <button id="timer-control-main" class="w-20 h-20 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-lg shadow-primary/20 active:scale-90 hover:brightness-110 transition-all shrink-0" title="Start timer">
+            <span id="timer-control-icon" class="material-symbols-outlined text-3xl font-bold" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+          </button>
+
+          <button id="timer-mode-toggle" class="w-14 h-14 rounded-full glass-card flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:border-white/20 active:scale-95 transition-all" title="Toggle Break mode">
+            <span id="timer-mode-toggle-icon" class="material-symbols-outlined">coffee</span>
+          </button>
+        </div>
+
+        <!-- Stats Widgets -->
+        <div class="grid grid-cols-2 gap-4 px-2">
+          <div class="glass-card rounded-2xl p-5 border-white/5 flex flex-col items-center justify-center gap-1.5 hover:border-white/10 transition-all">
+            <span class="material-symbols-outlined text-tertiary text-xl" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+            <div class="font-sans text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Sessions Today</div>
+            <div id="focus-completed-count" class="font-sans font-bold text-2xl text-on-surface">0</div>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5 border-white/5 flex flex-col items-center justify-center gap-1.5 hover:border-white/10 transition-all">
+            <span class="material-symbols-outlined text-secondary text-xl">auto_awesome</span>
+            <div class="font-sans text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Total Time</div>
+            <div id="focus-total-minutes" class="font-sans font-bold text-2xl text-on-surface">0m</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 5: Goals View (Hidden initially) -->
+      <section id="goals-view" class="view-panel hidden space-y-6 max-w-lg mx-auto">
+        <div class="flex items-center gap-4">
+          <button class="back-btn w-10 h-10 rounded-full glass-card flex items-center justify-center text-on-surface hover:bg-white/10 active:scale-95 transition-all">
+            <span class="material-symbols-outlined">arrow_back</span>
+          </button>
+          <h2 class="font-sans font-bold text-2xl text-on-surface tracking-tight">Daily Goals</h2>
+        </div>
+
+        <!-- Progress Card -->
+        <div class="glass-card rounded-3xl p-6 space-y-4 border-white/10 inner-glow relative overflow-hidden">
+          <div class="absolute top-[-30px] right-[-30px] opacity-10 text-secondary pointer-events-none">
+            <span class="material-symbols-outlined text-[120px]">emoji_events</span>
+          </div>
+
+          <div class="flex justify-between items-end relative z-10">
+            <div>
+              <div class="font-sans text-xs font-bold text-secondary uppercase tracking-widest mb-1">Current Progress</div>
+              <div id="goals-progress-label" class="font-sans font-bold text-xl text-on-surface">0 of 0 goals met</div>
+            </div>
+            <div id="goals-progress-percent" class="font-sans font-bold text-2xl text-secondary">0%</div>
+          </div>
+
+          <div class="w-full bg-surface-variant/40 h-3 rounded-full overflow-hidden relative border border-white/5">
+            <div id="goals-progress-bar" class="bg-secondary h-full transition-all duration-700 shadow-[0_0_8px_rgba(68,226,205,0.4)]" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- Goals Input Form -->
+        <form id="goal-form" class="glass-card inner-glow rounded-3xl p-4 flex gap-2">
+          <input id="goal-input" type="text" autocomplete="off" placeholder="What's next?" class="flex-grow bg-transparent border-none focus:outline-none focus:ring-0 text-on-surface placeholder:text-outline/50 px-2 text-base" />
+          <button type="submit" class="w-10 h-10 rounded-xl bg-secondary text-on-secondary flex items-center justify-center hover:brightness-110 transition-all active:scale-95 shrink-0">
+            <span class="material-symbols-outlined font-bold">add</span>
+          </button>
+        </form>
+
+        <!-- Goals List -->
+        <div id="goals-list" class="space-y-3">
+          <!-- Dynamically populated -->
+        </div>
+      </section>
+
+      <!-- VIEW 6: Wisdom quotes (Hidden initially) -->
+      <section id="quotes-view" class="view-panel hidden space-y-8 max-w-3xl mx-auto">
+        <div class="flex items-center gap-4 text-left">
+          <button class="back-btn w-10 h-10 rounded-full glass-card flex items-center justify-center text-on-surface hover:bg-white/10 active:scale-95 transition-all">
+            <span class="material-symbols-outlined">arrow_back</span>
+          </button>
+          <h2 class="font-sans font-bold text-2xl text-on-surface tracking-tight">Wisdom</h2>
+        </div>
+
+        <!-- Main Quote Card -->
+        <div id="quotes-card" class="glass-card inner-glow w-full rounded-3xl p-8 md:p-14 flex flex-col items-center text-center space-y-6 md:space-y-10 relative overflow-hidden transition-all duration-300">
+          <div class="absolute top-4 left-6 text-tertiary opacity-10 pointer-events-none select-none">
+            <span class="font-sans text-[180px] font-extrabold leading-none">“</span>
+          </div>
+
+          <div class="flex flex-col items-center gap-6 relative z-10 w-full">
+            <p id="quote-text" class="font-sans font-semibold text-xl md:text-3xl text-on-surface leading-snug tracking-tight max-w-2xl transition-all duration-300">
+              "The only way to do great work is to love what you do."
+            </p>
+
+            <div id="quote-author-container" class="flex items-center justify-center gap-4 transition-all duration-300">
+              <div class="h-[1px] w-8 bg-outline-variant"></div>
+              <span id="quote-author" class="font-sans text-xs md:text-sm font-semibold text-on-surface-variant tracking-widest uppercase">Steve Jobs</span>
+              <div class="h-[1px] w-8 bg-outline-variant"></div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="pt-6 w-full flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
+            <button id="next-quote-btn" class="group flex items-center justify-center gap-2 px-8 py-3.5 bg-primary-container text-on-primary-container font-sans text-xs font-bold uppercase tracking-wider rounded-full shadow-lg shadow-primary-container/20 hover:brightness-110 active:scale-95 transition-all w-full sm:w-auto shrink-0">
+              <span class="material-symbols-outlined text-sm font-bold group-hover:rotate-180 transition-transform duration-500">sync</span>
+              New Quote
+            </button>
+
+            <button id="copy-quote-btn" class="flex items-center justify-center gap-2 px-8 py-3.5 glass-card text-on-surface border border-white/10 font-sans text-xs font-bold uppercase tracking-wider rounded-full hover:bg-white/10 active:scale-95 transition-all w-full sm:w-auto shrink-0">
+              <span id="copy-icon" class="material-symbols-outlined text-sm">content_copy</span>
+              <span id="copy-text">Share</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Decorative Bento boxes -->
+        <div class="w-full mt-4 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="glass-card p-6 rounded-2xl flex flex-col justify-between min-h-[160px] border-white/5 hover:border-white/10 transition-all">
+            <span class="material-symbols-outlined text-secondary text-2xl">sparkles</span>
+            <div class="space-y-1 mt-4">
+              <h3 class="font-sans font-bold text-sm text-on-surface">Curated Focus</h3>
+              <p class="font-sans text-xs text-on-surface-variant">Daily inspiration for your deep work sessions.</p>
+            </div>
+          </div>
+
+          <div class="md:col-span-2 relative h-[160px] rounded-2xl overflow-hidden glass-card border-white/5 hover:border-white/10 transition-all group cursor-pointer">
+            <div class="absolute inset-0 bg-cover bg-center opacity-30 transition-transform duration-700 group-hover:scale-105" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAkCabyzCa3AAuMOJI6aQoyxS6hm2dHRZwy_HDcl8JPue4YpVUFcN9BTiB8zkyNyl2Kyyxvm208X5UpXoXFthT_LZ1Pxcew2id7qnjgZsSd80HehBUME8vH__Dh5x3_88ixdjMADyF4qJFQAjhda_gFWEHL7CvAvzmpnfNiQxoxnyH33UkY4dZk23mGBwxdAUWlmhXMJ9DC0gHBeVhLe2SoN_CrqD-0-nBllJiV3Gbj-JZiZzBVSnyJ5euxP6601qyGfHA-jwietFEr');"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
+            <div class="absolute bottom-6 left-6 z-10">
+              <h3 class="font-sans font-bold text-lg text-white">Focus is a discipline.</h3>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Global Bottom Nav -->
+    <nav id="global-bottom-nav" class="fixed bottom-0 left-0 w-full z-50 glass-card backdrop-blur-2xl border-t border-white/5 py-2 px-6 flex justify-around items-center rounded-t-3xl transition-transform duration-300 shadow-[0_-8px_32px_0_rgba(0,0,0,0.4)]">
+      <button id="nav-btn-dashboard" class="nav-button flex flex-col items-center justify-center p-2 rounded-2xl transition-all text-primary scale-105">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">grid_view</span>
+        <span class="text-[10px] font-bold uppercase tracking-wider mt-1">Dash</span>
+      </button>
+
+      <button id="nav-btn-tasks" class="nav-button flex flex-col items-center justify-center p-2 rounded-2xl transition-all text-on-surface-variant hover:text-on-surface">
+        <span class="material-symbols-outlined">checklist</span>
+        <span class="text-[10px] font-bold uppercase tracking-wider mt-1">Tasks</span>
+      </button>
+
+      <button id="nav-btn-planner" class="nav-button flex flex-col items-center justify-center p-2 rounded-2xl transition-all text-on-surface-variant hover:text-on-surface">
+        <span class="material-symbols-outlined">calendar_today</span>
+        <span class="text-[10px] font-bold uppercase tracking-wider mt-1">Planner</span>
+      </button>
+
+      <button id="nav-btn-focus" class="nav-button flex flex-col items-center justify-center p-2 rounded-2xl transition-all text-on-surface-variant hover:text-on-surface">
+        <span class="material-symbols-outlined">timer</span>
+        <span class="text-[10px] font-bold uppercase tracking-wider mt-1">Focus</span>
+      </button>
+
+      <button id="nav-btn-goals" class="nav-button flex flex-col items-center justify-center p-2 rounded-2xl transition-all text-on-surface-variant hover:text-on-surface">
+        <span class="material-symbols-outlined">track_changes</span>
+        <span class="text-[10px] font-bold uppercase tracking-wider mt-1">Goals</span>
+      </button>
+
+      <button id="nav-btn-quotes" class="nav-button flex flex-col items-center justify-center p-2 rounded-2xl transition-all text-on-surface-variant hover:text-on-surface">
+        <span class="material-symbols-outlined">format_quote</span>
+        <span class="text-[10px] font-bold uppercase tracking-wider mt-1">Wisdom</span>
+      </button>
+    </nav>
+
+    <script type="module" src="./src/js/main.js"></script>
+  </body>
+</html>
