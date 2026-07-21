@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+.bg-volt {
+  --tw-bg-opacity: 1;
+  background-color: rgb(200 244 0 / var(--tw-bg-opacity, 1));
+}
+
+.text-volt {
+  --tw-bg-opacity: 1;
+  color: rgb(200 244 0 / var(--tw-bg-opacity, 1));
+}
+
+.field {
+    width: 100%;
+    border-radius: 1rem;
+    border-width: 1px;
+    border-color: #ffffff1a;
+    background-color: #ffffff0d;
+    padding: .75rem .75rem 1rem 2.5rem;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+    transition-duration: .2s;
+}
+
+.btn-volt {
+    border-radius: 1rem;
+    --tw-bg-opacity: 1;
+    background-color: rgb(200 244 0 / var(--tw-bg-opacity, 1));
+    padding: .75rem 1.5rem;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    --tw-text-opacity: 1;
+    color: rgb(13 13 13 / var(--tw-text-opacity, 1));
+    transition-property: all;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+    transition-duration: .15s;
+}
+
+.btn-ghost {
+    border-radius: 1rem;
+    border-width: 1px;
+    border-color: #ffffff26;
+    padding: .75rem 1.5rem;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    color: #ffffffb3;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+    transition-duration: .15s;
+}
+
+.bg-volt\/15 {
+    background-color: rgba(200, 244, 0, 0.15);
+}
